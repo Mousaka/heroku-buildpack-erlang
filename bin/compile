@@ -58,7 +58,7 @@ ${ERLROOT}/Install -minimal /app/otp
 PATH=/app/otp/bin:$PATH
 export PATH
 echo "-------> Moving erlang.mk to root folder"
-mv ${cache}/erlang.mk ${ERLROOT}
+mv ${cache}/erlang.mk ${ERLROOT}/
 cd $build
 
 if [ ! -e "_rel" ]; then
