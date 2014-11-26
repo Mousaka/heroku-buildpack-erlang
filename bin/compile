@@ -17,6 +17,7 @@ fi
 ver=${OTP_VERSION:=${DEFAULT_OTP_VERSION}}
 tarball=${ver}.tgz
 OTP_TARBALL_URL="https://s3.amazonaws.com/heroku-buildpack-erlang/${tarball}"
+ERLANG_MK_URL="https://raw.githubusercontent.com/ninenines/erlang.mk/master/erlang.mk"
 ERLROOT=${build}/otp
 PROFILE=${HOME}/.profile.d
 
@@ -34,16 +35,30 @@ echo "-----> Using Erlang/OTP $ver"
     curl -sO ${OTP_TARBALL_URL} || exit 1
 )
 
+echo "-----> Using erlang.mk"
+
+(
+    set -e
+
+    #already cached?
+    test -f ${cache}/erlang.mk && exit
+
+    rm -rf ${cache}/* # be sure not to build up cruft
+    cd ${cache}
+    echo "-------> Fetching erlang.mk file"
+    curl -sO ${ERLANG_MK_URL} || exit 1
+)
+
 echo "-------> Unpacking Erlang/OTP $ver"
 mkdir -p ${ERLROOT}
 tar zxf ${cache}/${tarball} -C ${ERLROOT} --strip-components=2
 echo "-------> Installing Erlang/OTP $ver"
 ln -s ${ERLROOT} /app/otp
 ${ERLROOT}/Install -minimal /app/otp
-
 PATH=/app/otp/bin:$PATH
 export PATH
-
+echo "-------> Moving erlang.mk to root folder"
+mv ${cache}/erlang.mk ${ERLROOT}
 cd $build
 
 if [ ! -e "_rel" ]; then
