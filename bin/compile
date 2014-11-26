@@ -43,7 +43,6 @@ echo "-----> Using erlang.mk"
     #already cached?
     test -f ${cache}/erlang.mk && exit
 
-    rm -rf ${cache}/* # be sure not to build up cruft
     cd ${cache}
     echo "-------> Fetching erlang.mk file"
     curl -sO ${ERLANG_MK_URL} || exit 1
