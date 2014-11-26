@@ -46,6 +46,7 @@ echo "-----> Using erlang.mk"
     cd ${cache}
     echo "-------> Fetching erlang.mk file"
     curl -sO ${ERLANG_MK_URL} || exit 1
+    ls
 )
 
 echo "-------> Unpacking Erlang/OTP $ver"
