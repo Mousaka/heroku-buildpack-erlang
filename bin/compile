@@ -46,16 +46,13 @@ echo "-----> Using erlang.mk"
     cd ${cache}
     echo "-------> Fetching erlang.mk file"
     curl -sO ${ERLANG_MK_URL} || exit 1
-    ls
 )
 
 echo "-------> Unpacking Erlang/OTP $ver"
 mkdir -p ${ERLROOT}
 tar zxf ${cache}/${tarball} -C ${ERLROOT} --strip-components=2
-echo "-------> Moving erlang.mk to root folder"
-mv ${cache}/erlang.mk ${ERLROOT}/
-ls $ERLROOT
-ls ${ERLROOT}
+echo "-------> Moving erlang.mk to bpdir/opt folder"
+mv ${cache}/erlang.mk ${bpdir}/opt/
 echo "-------> Installing Erlang/OTP $ver"
 ln -s ${ERLROOT} /app/otp
 ${ERLROOT}/Install -minimal /app/otp
