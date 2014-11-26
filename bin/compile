@@ -66,6 +66,7 @@ cd $build
 if [ ! -e "_rel" ]; then
   echo "-----> Installing makefile from buildpack"
   cp ${bpdir}/opt/Makefile .
+  cp ${bpdir}/opt/erlang.mk .
 fi
 
 echo "-----> Building with make"
