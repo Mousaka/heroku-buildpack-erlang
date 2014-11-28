@@ -1,16 +1,9 @@
 ## Heroku buildpack: Erlang (forked from https://github.com/archaelus/heroku-buildpack-erlang)
 
-This is a Heroku buildpack for Erlang apps. It uses [erlang.mk](https://github.com/ninenines/erlang.mk).
+This is a Heroku buildpack for Erlang apps. It uses [erlang.mk](https://github.com/ninenines/erlang.mk) instead of rebar.
 
-###NOTE
-Not sure this works yet. I'm able to build my heroku project but it's having trouble starting the application:
-
-	heroku[web.1]: Starting process with command `./_rel/gatherl_release/bin/gatherl_release start`
-	app[web.1]: egrep: /app/_rel/gatherl_release/releases/1/vm.args: No such file or directory
-
-Might also be that my app projects Procfile is not written correctly, currently being:
-
-	web: ./_rel/gatherl_release/bin/gatherl_release start
+### Note
+Must use stack 'cedar' and not 'cedar-14' in order to work for deployment on heroku.com
 
 ### Configure your Heroku App
 
